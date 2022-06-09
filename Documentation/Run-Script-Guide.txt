@@ -1,0 +1,11 @@
+Run 'sage' from terminal.
+
+Once sage is loaded and interactive:
+	1. load('script.sage')
+		Loads the script and execute it once.
+	
+	2. attach('script.sage')
+		Loads the script and execute it every time script.sage changes, perfect for debug.
+
+CTRL+D or 'exit' to end the Sage session and go back to terminal.
+
