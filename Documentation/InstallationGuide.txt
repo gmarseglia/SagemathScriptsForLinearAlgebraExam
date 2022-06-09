@@ -1,0 +1,1 @@
+Install 'sagemath sagemath-doc sagemath-common' via apt.
