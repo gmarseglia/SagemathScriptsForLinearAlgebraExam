@@ -19,12 +19,14 @@ Content = [
 	[1, 1,  1,  1]
 ]
 
+Xn_count = 0
+
 """
 	AUTOMATION PART
 """
 
 from os import system
-
+from myFunctions import declare_xyzt
 """
 Clear the terminal and set the debug print level
 """
@@ -34,17 +36,13 @@ system('clear')
 """
 Declare variables
 """
-x, y, t, z = var('x, y, t, z')
-
+x, y, t, z = declare_xyzt()
+Xn = []
+for i in range(0, Xn_count):
+	Xn.append( var('x' + str(i)) )
 
 """
 Create the matrix
 """
 M = matrix(Content)
 # M = matrix(RDF, Content)
-
-"""
-Print matrix
-"""
-print("\nM:")
-print(M)
