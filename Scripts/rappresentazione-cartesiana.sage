@@ -4,67 +4,75 @@ In short:
 """
 
 """
-Reset
+#################### INIT START ####################
 """
+
+""" Reset """
 from sage.misc.reset import reset
 reset()
+
+""" Import and define """
 from os import system
-from myFunctions import double_print, declare_xyz
+from myFunctions import double_print
+
+variables_names = ''
 
 def declare_variables():
-	"""
-	Declare variables
-	"""
+	""" Declare variables """
 	variables_names = ''
-	variables_names += 'x, y, z'
+	# Add x, y, z, h, t, k
+	variables_names += 'x, y, z, h, t, k'
+	# Add x0, x1, ... if needed
 	if vectors_length > 3:
 		for i in range(0, vectors_length):
 			variables_names += (', x' + str(i))
+	# Add h, t, ... if present
 	if new_variables_name != '':
 		variables_names += ', ' + new_variables_name
 
 	double_print("Variables", variables_names)
+	# Declare and inject variables
 	R = PolynomialRing(QQ, variables_names)
 	R.inject_variables()
 
+""" Clear the terminal and set the debug print level """
+fine_debug = false
+system('clear')
+
 """
-	USER PART
+#################### INIT STOP ####################
 """
 
 """
-Fill Content with vectors as rows
+#################### USER START ####################
 """
 
-new_variables_name = 'h, t'
+""" Initialize variables """
+# x, y, z, h, t, k are declared for default
+new_variables_name = ''
 vectors_length = 3
 
 declare_variables()
 
+""" Basis vectors as matrix rows """
 Content = [
-	[t, 0, 1 + h],
-	[1, h, 1]
+	[1, 0, 1],
+	[0, 0, 1]
 ]
 
 """
-	AUTOMATION PART
+#################### USER END ####################
 """
 
 """
-Clear the terminal and set the debug print level
+#################### COMPUTATION START ####################
 """
-fine_debug = false
-system('clear')
 
-
-"""
-Create the matrix
-"""
+""" Create the matrix """
 # M = matrix(RDF, Content)
 M = matrix(Content)
 
-"""
-Create variable vector
-"""
+""" Create variables vector """
 if vectors_length <= 3:
 	Xn = [x, y, z]
 else:
@@ -75,8 +83,14 @@ else:
 double_print("M", M)
 double_print("Xn", Xn)
 
+""" Create matrix that will define the constraints """
 M_stacked_transposed = M.stack(matrix([Xn])).transpose()
 double_print("M_stacked_transposed", M_stacked_transposed)
 
+""" Reduce the matrix to the echelon form """
 M_final = M_stacked_transposed.echelon_form()
 double_print('M_final', M_final)
+
+"""
+#################### COMPUTATION END ####################
+"""

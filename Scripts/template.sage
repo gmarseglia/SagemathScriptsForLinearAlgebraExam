@@ -4,45 +4,71 @@ In short:
 """
 
 """
-	USER PART
+#################### INIT START ####################
 """
 
-"""
-Fill the matrix with the contect, for example:
-	x +  y +  z + t = 0
-	x + 2y - 2z - t = 0
-	x +  y +  z + t = 0
-"""
-Content = [
-	[1, 1,  1,  1],
-	[1, 2, -2, -1],
-	[1, 1,  1,  1]
-]
+""" Reset """
+from sage.misc.reset import reset
+reset()
 
-Xn_count = 0
-
-"""
-	AUTOMATION PART
-"""
-
+""" Import and define """
 from os import system
-from myFunctions import declare_xyzt
-"""
-Clear the terminal and set the debug print level
-"""
+from myFunctions import double_print
+
+variables_names = ''
+
+def declare_variables():
+	""" Declare variables """
+	variables_names = ''
+	# Add x, y, z, h, t, k
+	variables_names += 'x, y, z, h, t, k'
+	# Add x0, x1, ... if needed
+	if vectors_length > 3:
+		for i in range(0, vectors_length):
+			variables_names += (', x' + str(i))
+	# Add h, t, ... if present
+	if new_variables_name != '':
+		variables_names += ', ' + new_variables_name
+
+	double_print("Variables", variables_names)
+	# Declare and inject variables
+	R = PolynomialRing(QQ, variables_names)
+	R.inject_variables()
+
+""" Clear the terminal and set the debug print level """
 fine_debug = false
 system('clear')
 
 """
-Declare variables
+#################### INIT STOP ####################
 """
-x, y, t, z = declare_xyzt()
-Xn = []
-for i in range(0, Xn_count):
-	Xn.append( var('x' + str(i)) )
 
 """
-Create the matrix
+#################### USER START ####################
 """
-M = matrix(Content)
-# M = matrix(RDF, Content)
+
+""" Initialize variables """
+# x, y, z, h, t, k are declared for default
+new_variables_name = ''
+vectors_length = 3
+
+declare_variables()
+
+""" Basis vectors as matrix rows """
+Content = [
+	[1, 0, 0],
+	[0, 1, 0],
+	[0, 0, 1]
+]
+
+"""
+#################### USER END ####################
+"""
+
+"""
+#################### COMPUTATION START ####################
+"""
+
+"""
+#################### COMPUTATION END ####################
+"""
