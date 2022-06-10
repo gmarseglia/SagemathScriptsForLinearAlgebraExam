@@ -15,7 +15,7 @@ from os import system
 from myFunctions import double_print
 
 parameters_are_variables = False
-rref_instead_of_echelon_form = True
+rref_instead_of_echelon_form = False
 fine_debug = False
 
 def declare_variables():
