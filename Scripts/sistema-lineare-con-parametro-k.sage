@@ -1,6 +1,5 @@
 """
-	Risolve sistemi lineari omogenei,
-	e permette di calcolare una base data la rappresentazione cartesiana.
+    Risolve i sistemi lineari non omogenei con parametro k.
 """
 
 """
@@ -15,51 +14,65 @@ reset()
 from os import system
 from myFunctions import double_print
 
-parameters_are_variables = False
-
-use_gauss_reduction = True
-gauss_rescale_leading_entry = False
-
-rref_instead_of_echelon_form = False	
-
-fine_debug = True
-
 def declare_variables():
-	""" Declare variables """
-	variables_names = ''
-	# Add x, y, z
-	variables_names += 'x, y, z'
-	# Add x0, x1, ... if needed
-	if vectors_length > 3:
-		for i in range(0, vectors_length):
-			variables_names += (', x' + str(i))
+    """ Add all variables names """
+    variables_names = ''
+    # Add x, y, z
+    variables_names += 'x, y, z'
+    # Add x0, x1, ... if needed
+    if vectors_length > 3:
+        for i in range(0, vectors_length):
+            variables_names += (', x' + str(i))
 
-	parameters_name = ""
-	# Add h, t, k
-	parameters_name += 'h, t, k'
-	# Add new_parameters_name if present
-	if new_parameters_name != '':
-		parameters_name += ', ' + new_parameters_name
+    """ Add all parameters names """
+    parameters_names = ""
+    # Add h, t, k
+    parameters_names += 'h, t, k'
+    # Add new_parameters_names if present
+    if new_parameters_names != '':
+        parameters_names += ', ' + new_parameters_names
 
-	if parameters_are_variables:
-		variables_names += ', ' + parameters_name
+    """ Combine according to boolean in symbolic names and
+        polynomial ring names """
+    symbolic_names = ""
+    polynomial_ring_names = ""
 
-	double_print("Variables", variables_names)
-	# Declare and inject variables
-	R = PolynomialRing(QQ, variables_names)
-	R.inject_variables()
-	
-	if not parameters_are_variables:
-		parameters = var(parameters_name)
+    if variables_are_in_polynomial_ring:
+        polynomial_ring_names += variables_names
+    else:
+        symbolic_names += variables_names
 
-	return R
+    if parameters_are_in_polynomial_ring:
+        if polynomial_ring_names != "" : polynomial_ring_names += ', '
+        polynomial_ring_names += parameters_names
+    else:
+        if symbolic_names != "" : symbolic_names += ', '
+        symbolic_names += parameters_names
+
+    """ Declare variables and parameters according to boolean """
+    # var() style
+    print("\nDeclaring variables:")
+
+    Xn_list = []
+    if symbolic_names != "":
+        print('\tAs var():\t\t{}'.format(symbolic_names))
+        Xn_list = var(symbolic_names)
+
+    # PolynomialRing and inject style
+    R = false
+    if polynomial_ring_names != "":
+        print('\tWith PolynomialRing:\t{}'.format(polynomial_ring_names))
+        R = PolynomialRing(QQ, polynomial_ring_names)
+        R.inject_variables(verbose=False)
+
+    return R, Xn_list
 
 # Naive Gaussian reduction
-def gauss_method(M, rescale_leading_entry=False):
+def gauss_method(M):
     """Describe the reduction to echelon form of the given matrix of rationals.
 
     M  matrix of rationals   e.g., M = matrix(QQ, [[..], [..], ..])
-    gauss_rescale_leading_entry=False  boolean  make the leading entries to 1's
+    rescale_leading_entry=False  boolean  make the leading entries to 1's
 
     Returns: None.  Side effect: M is reduced.  Note: this is echelon form, 
     not reduced echelon form; this routine does not end the same way as does 
@@ -68,7 +81,13 @@ def gauss_method(M, rescale_leading_entry=False):
     """
     num_rows=M.nrows()
     num_cols=M.ncols()
-    if fine_debug: print(M)    
+    
+    if fine_debug:
+        if gauss_rescale_leading_entry:
+            print("\nInitiating Gauss Reduction (with rescale leading entry)")
+        else:
+            print("\nInitiating Gauss Reduction")
+        double_print("Starting matrix", M)  
 
     col = 0   # all cols before this are already done
     for row in range(0,num_rows): 
@@ -76,29 +95,39 @@ def gauss_method(M, rescale_leading_entry=False):
         while (col < num_cols and M[row][col] == 0): 
             for i in M.nonzero_positions_in_column(col):
                 if i > row:
-                    M.swap_rows(row,i)
-                    if fine_debug: 
-                    	print(" Swap row",row+1,"with row",i+1)
-                    	print(M)
+                    if fine_debug: print(" Swap row",row+1,"with row",i+1)
+                    M = M.with_swapped_rows(row,i)
+                    if fine_debug: print(M)
                     break     
-            else:
-                col += 1
+                else:
+                    col += 1
 
         if col >= num_cols:
             break
 
         # Now guaranteed M[row][col] != 0
-        if (rescale_leading_entry and M[row][col] != 1):
-            if fine_debug: print(" Row",row+1,"times",1/M[row][col])
-            M.rescale_row(row,1/M[row][col])
+        q=1/M[row][col]
+        try:
+            q_is_real = q.is_real()
+        except:
+            q_is_real = false
+        test = (not q == 1) and (q in QQ or q_is_real)
+        # print('q: {}, test: {}'.format(q, test))
+        if (gauss_rescale_leading_entry and test):
+            if fine_debug: print(" Row",row+1,"times", q)
+            M = M.with_rescaled_row(row, q)
             if fine_debug: print(M)
+
         for changed_row in range(row+1,num_rows):
-            if M[changed_row][col] != 0:
+            if not M[changed_row][col] == 0:
                 factor=-1*M[changed_row][col]/M[row][col]
                 if fine_debug: print(" Row",changed_row+1,"plus", factor, "times row", row+1)
-                M.add_multiple_of_row(changed_row,row,factor)
+                M = M.with_added_multiple_of_row(changed_row, row, factor)
                 if fine_debug: print(M)
+            
         col +=1
+
+    return M
 
 """ Clear the terminal """
 system('clear')
@@ -108,33 +137,48 @@ system('clear')
 """
 
 """
+#################### CONFIG START ####################
+"""
+
+use_gauss_reduction = False
+gauss_rescale_leading_entry = True
+
+variables_are_in_polynomial_ring = False
+parameters_are_in_polynomial_ring = False
+
+use_rref_instead_of_echelon_form = False
+
+fine_debug = True
+
+"""
+#################### CONFIG STOP ####################
+"""
+
+"""
 #################### USER START ####################
 """
 
 """ Initialize variables """
 # x, y, z, h, t, k are declared for default
-new_parameters_name = ''
+new_parameters_names = ''
 vectors_length = 3
 
-R = declare_variables()
+R, Xn_list = declare_variables()
 
-""" Basis vectors as matrix rows """
-
-# k = -1
+""" Assumptions and assignements """
+if not parameters_are_in_polynomial_ring:
+    assume(k, 'real')
+# k = 0
 
 A = Matrix([
-	[2, k+1, 1],
-	[2, 2*k+2, k+2],
-	[2, k+1, k-1]
+    [2, k+1, 1],
+    [2, 2*k+2, k+2],
+    [2, k+1, k-1]
 ])
 
 B = Matrix(3, [4, k+6, k+2])
 
 double_print("k", k)
-
-# k has been assigned a value
-if k in QQ:
-	use_gauss_reduction = False
 
 """
 #################### USER END ####################
@@ -150,49 +194,47 @@ double_print("M", M)
 
 """ Create variables vector """
 if vectors_length <= 3:
-	Xn_list = [x, y, z]
+    Xn = vector([x, y, z])
 else:
-	Xn_list = []
-	for i in range(3, 3 + vectors_length):
-		Xn_list.append( R.gen(i) )
-Xn = vector(Xn_list)
+    Xn = vector(Xn_list[3:3+vectors_length])
 double_print("Xn", Xn)
 
 """ Print the constraints """
 print("\nConstraints:")
 for i in range(0, M.nrows()):
-	f = Xn.dot_product(A.row(i))
-	print(f,"=",B.row(i)[0])
+    f = Xn.dot_product(A.row(i))
+    print(f,"=",B.row(i)[0])
 
-""" Echelonize the matrixm and print """
-# .rref() is preferred because use fractions
-M_ECHELON = copy(M)
+""" Reduce the matrix to the echelon form """
+message = "MEchelon "
 if use_gauss_reduction:
-	if fine_debug:
-		print("\nInitiating gauss_method:")
-	gauss_method(M_ECHELON, gauss_rescale_leading_entry)
-	double_print("M_ECHELON (using gauss_method)", M_ECHELON)
+    message += "(using gauss_method)"
+    MEchelon = gauss_method(M)
 else:
-	if rref_instead_of_echelon_form:
-		M_ECHELON = M.rref()
-		double_print("M_ECHELON (using rref)", M_ECHELON)
-	else:
-		M_ECHELON.echelonize()
-		double_print("M_ECHELON (using echelonize)", M_ECHELON)
+    if use_rref_instead_of_echelon_form:
+        message += "(using .rref())"
+        MEchelon = M.rref()
+    else:
+        message += "(using .echelonize())"
+        MEchelon = copy(M)
+        MEchelon.echelonize()
 
-""" Compute the pivots """
-pivots_columns = M_ECHELON.pivots()
-pivots_rows = M_ECHELON.pivot_rows()
-pivots = []
-for i in range(0, len(pivots_columns)):
-	pivots.append( ((pivots_rows[i], pivots_columns[i]), M_ECHELON[pivots_rows[i]][pivots_columns[i]]) )
-double_print("Pivots", pivots)
+double_print(message, MEchelon)
 
-if not k in QQ and not parameters_are_variables:
-	print("\nConditions:")
-	for pivot in pivots:
-		if not pivot[1] in QQ:
-			print(str(solve(pivot[1] == 0, k)).replace("[","").replace("]","").replace('==', '!=').replace("\n","").replace(",",", "))
+
+if MEchelon.submatrix(0, 0, MEchelon.nrows(), MEchelon.nrows()).is_symmetric and not variables_are_in_polynomial_ring and not use_gauss_reduction:
+    """ Compute the pivots """
+    pivots_columns = MEchelon.pivots()
+    pivots_rows = MEchelon.pivot_rows()
+    pivots = []
+    for i in range(0, len(pivots_columns)):
+        pivots.append( ((pivots_rows[i], pivots_columns[i]), MEchelon[pivots_rows[i]][pivots_columns[i]]) )
+    double_print("Pivots", pivots)
+
+    print("\nConditions:")
+    for i in range(0, len(pivots)):
+        f = (Xn[i] == MEchelon[i][MEchelon.ncols()-1])
+        print(str(solve(f, Xn[i])).replace("[","").replace("]","").replace("\n","").replace(",",", "))
 
 """
 #################### COMPUTATION END ####################
