@@ -89,14 +89,12 @@ def gauss_method(M, rescale_leading_entry=False):
 
         # Now guaranteed M[row][col] != 0
         if (rescale_leading_entry and M[row][col] != 1):
-            # if fine_debug: print(" take",1/M[row][col],"times row",row+1)
             if fine_debug: print(" Row",row+1,"times",1/M[row][col])
             M.rescale_row(row,1/M[row][col])
             if fine_debug: print(M)
         for changed_row in range(row+1,num_rows):
             if M[changed_row][col] != 0:
                 factor=-1*M[changed_row][col]/M[row][col]
-                # if fine_debug: print(" take",factor,"times row",row+1,"plus row",changed_row+1)
                 if fine_debug: print(" Row",changed_row+1,"plus", factor, "times row", row+1)
                 M.add_multiple_of_row(changed_row,row,factor)
                 if fine_debug: print(M)

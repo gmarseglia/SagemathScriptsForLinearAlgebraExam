@@ -1,5 +1,5 @@
 """
-	Template.
+	declare_variables with var and polynomial ring.
 """
 
 """
