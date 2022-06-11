@@ -10,19 +10,12 @@
 from sage.misc.reset import reset
 reset()
 
+""" Clear the terminal """
+system('clear')
+
 """ Import and define """
 from os import system
 from myFunctions import double_print
-
-use_gauss_reduction = True
-gauss_rescale_leading_entry = True
-
-variables_are_in_polynomial_ring = False
-parameters_are_in_polynomial_ring = False
-
-use_rref_instead_of_echelon_form = False
-
-fine_debug = False
 
 def declare_variables():
     """ Add all variables names """
@@ -137,11 +130,26 @@ def gauss_method(M):
 
     return M
 
-""" Clear the terminal """
-system('clear')
-
 """
 #################### INIT STOP ####################
+"""
+
+"""
+#################### CONFIG START ####################
+"""
+
+use_gauss_reduction = True
+gauss_rescale_leading_entry = True
+
+variables_are_in_polynomial_ring = False
+parameters_are_in_polynomial_ring = False
+
+use_rref_instead_of_echelon_form = False
+
+fine_debug = False
+
+"""
+#################### CONFIG STOP ####################
 """
 
 """
@@ -155,13 +163,12 @@ vectors_length = 4
 
 R = declare_variables()
 
-""" Content """
-
+""" Assumptions and assignements """
 # if not parameters_are_in_polynomial_ring:
 #     assume(h, 'real')
-
 # k = 0
 
+""" Content """
 Content = [
 ]
 
