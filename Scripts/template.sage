@@ -10,9 +10,6 @@
 from sage.misc.reset import reset
 reset()
 
-""" Clear the terminal """
-system('clear')
-
 """ Import and define """
 from os import system
 from myFunctions import double_print
@@ -129,6 +126,9 @@ def gauss_method(M):
         col +=1
 
     return M
+
+""" Clear the terminal """
+system('clear')
 
 """
 #################### INIT STOP ####################
