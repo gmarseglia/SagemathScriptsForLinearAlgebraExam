@@ -1,5 +1,5 @@
 """
-	Template.
+	gauss-reduction test.
 """
 
 """
@@ -141,7 +141,18 @@ vectors_length = 4
 R = declare_variables()
 
 """ Content """
-Content = []
+Content = [
+	[1, 0, x],
+	[0, k, y],
+	[0, k, z]
+]
+
+# Content = [
+# 	[1, -2, h, 0],
+# 	[2, 1, -3, 5],
+# 	[4, -7, 1, -1]
+# ]
+
 
 """
 #################### USER END ####################
