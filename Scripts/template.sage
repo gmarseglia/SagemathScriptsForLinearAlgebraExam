@@ -52,18 +52,20 @@ def declare_variables():
     """ Declare variables and parameters according to boolean """
     # var() style
     print("\nDeclaring variables:")
+
+    Xn_list = []
     if symbolic_names != "":
         print('\tAs var():\t\t{}'.format(symbolic_names))
-        var(symbolic_names)
+        Xn_list = var(symbolic_names)
 
     # PolynomialRing and inject style
+    R = false
     if polynomial_ring_names != "":
         print('\tWith PolynomialRing:\t{}'.format(polynomial_ring_names))
         R = PolynomialRing(QQ, polynomial_ring_names)
         R.inject_variables(verbose=False)
-        return R
 
-    return False
+    return R, Xn_list
 
 # Naive Gaussian reduction
 def gauss_method(M):
@@ -161,7 +163,7 @@ fine_debug = False
 new_parameters_names = ''
 vectors_length = 4
 
-R = declare_variables()
+R, Xn_list = declare_variables()
 
 """ Assumptions and assignements """
 # if not parameters_are_in_polynomial_ring:

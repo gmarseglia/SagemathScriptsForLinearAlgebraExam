@@ -161,7 +161,7 @@ fine_debug = True
 """ Initialize variables """
 # x, y, z, h, t, k are declared for default
 new_parameters_names = ''
-vectors_length = 3
+vectors_length = 4
 
 R, Xn_list = declare_variables()
 
@@ -171,9 +171,9 @@ if not parameters_are_in_polynomial_ring:
 # k = 0
 
 A = Matrix([
-    [2, k+1, 1],
-    [2, 2*k+2, k+2],
-    [2, k+1, k-1]
+    [2, k+1, 1, 1],
+    [2, 2*k+2, k+2, 1],
+    [2, k+1, k-1, 1]
 ])
 
 B = Matrix(3, [4, k+6, k+2])
@@ -196,7 +196,10 @@ double_print("M", M)
 if vectors_length <= 3:
     Xn = vector([x, y, z])
 else:
-    Xn = vector(Xn_list[3:3+vectors_length])
+    if not variables_are_in_polynomial_ring:
+        Xn = vector(Xn_list[3:3+vectors_length])
+    else:
+        Xn = vector(R.gens()[3:3+vectors_length])
 double_print("Xn", Xn)
 
 """ Print the constraints """
