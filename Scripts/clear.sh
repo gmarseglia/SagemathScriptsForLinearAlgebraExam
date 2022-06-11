@@ -1,17 +1,17 @@
 # !/bin/bash
-if [ -d "__pycache__" ] ; then
-	rm -r "__pycache__"
-	echo "__pycache__ deleted."
-fi
+for d in $(find . -type d -name "__pycache__") ; do
+	trash "$d"
+	echo "$d deleted."
+done
 
-if [ -e *.sage.py ] ; then
-	trash *.sage.py
-	echo "*.sage.py deleted."
-fi
+for f in $(find . -type f -name "*.sage.py") ; do
+	trash "$f"
+	echo "$f deleted."
+done
 
-if [ -e *.old ] ; then
-	trash *.old
-	echo "*.old deleted."
-fi
+for f in $(find . -type f -name "*.old") ; do
+	trash "$f"
+	echo "$f deleted."
+done
 
 printf "Done.\n\n"
