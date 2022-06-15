@@ -147,7 +147,7 @@ parameters_are_in_polynomial_ring = True
 #################### CONFIG START ####################
 """
 
-use_rref_instead_of_echelon_form = False
+use_rref_instead_of_echelon_form = True
 
 fine_debug = False
 
@@ -162,7 +162,7 @@ fine_debug = False
 """ Initialize variables """
 # x, y, z, h, t, k are declared for default
 new_parameters_names = ''
-vectors_length = 4
+vectors_length = 3
 
 R, Xn_list = declare_variables()
 
@@ -173,8 +173,8 @@ R, Xn_list = declare_variables()
 
 """ Basis vectors as matrix rows """
 Content = [
-    [1, 1, 1, 1],
-    [1, 1, -2, -1]
+    [1,-1,-1],
+    [1,-3,1]
 ]
 
 """
