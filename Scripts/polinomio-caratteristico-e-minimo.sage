@@ -197,18 +197,25 @@ double_print("I_t", It)
 MFinal = M - It
 double_print("MFinal", MFinal)
 pft = MFinal.det()
-double_print("Characteristic polynomial", "")
+print("\nCharacterisitc polynomial:")
 double_print("pft = det(MFinal)", pft)
 double_print("pft.full_simplify()", pft.full_simplify())
 double_print("factor(pft)", factor(pft))
-double_print("M.charpoly(t) !USE ONLY FOR ROOTS!", M.charpoly(t))
-double_print("M.fcp(t) !USE ONLY FOR ROOTS!", M.fcp(t))
+
+if fine_debug:
+    double_print("M.charpoly(t) !USE ONLY FOR ROOTS!", M.charpoly(t))
+    double_print("M.fcp(t) !USE ONLY FOR ROOTS!", M.fcp(t))
 
 # Compute the minimum polynomial
 mft = M.minpoly(t)
-double_print("\nMinimum polynomial", "")
+print("\nMinimum polynomial:")
 double_print("mft = M.minpoly()", mft)
 double_print("factor(mft)", factor(mft))
+
+# Compute the eigenvalues
+print("\nEigenvalues:")
+for eigen_value in M.eigenvalues():
+    print("{} with multiplicity {}".format(eigen_value, M.eigenvalue_multiplicity(eigen_value)))
 
 """
 #################### COMPUTATION END ####################
