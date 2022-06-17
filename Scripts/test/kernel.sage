@@ -1,5 +1,5 @@
 """
-    Template.
+    Calcola il kernel di una matrice.
 """
 
 """
@@ -172,6 +172,10 @@ R, Xn_list = declare_variables()
 
 """ Content """
 Content = [
+    [ 0,  1,  1,  0],
+    [ 0, -1,  0,  1],
+    [ 0, -1, -1,  0],
+    [ 1,  0,  1, -1],
 ]
 
 """
@@ -181,6 +185,15 @@ Content = [
 """
 #################### COMPUTATION START ####################
 """
+
+M = matrix(QQ, Content)
+matrix_print(M, name='M')
+
+MEchelon = gauss_method(M)
+matrix_print(MEchelon, name='MEchelon')
+
+print("\nKernel:")
+print(M.right_kernel(basis='pivot'))
 
 """
 #################### COMPUTATION END ####################
