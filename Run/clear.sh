@@ -4,7 +4,7 @@ for d in $(find . -type d -name "__pycache__" -or -name ".ipynb_checkpoints") ; 
 	echo "$d deleted."
 done
 
-for f in $(find . -type f -name "*.sage.py" -or -name "*.old") ; do
+for f in $(find . -type f -name "*.sage.py" -or -name "*.old" -or -iname "*.sobj") ; do
 	trash "$f"
 	echo "$f deleted."
 done
