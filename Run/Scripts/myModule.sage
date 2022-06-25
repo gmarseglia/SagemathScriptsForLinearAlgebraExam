@@ -1,22 +1,62 @@
 """
-    Template.
+    Customized Sage functions.
 """
 
-"""
-#################### INIT START ####################
-"""
+""" Print matrix with more control. """
+def matrix_print(M, name='', prefix='', inline=False, newline=True, between_entries=','):
+    rjust_count = 0
+    for i_row in range(0, M.nrows()):
+        for i_col in range(0, M.ncols()):
+            entry_len = len(str(M[i_row][i_col]))
+            if entry_len > rjust_count: rjust_count = entry_len
+    rjust_count += 1
 
-""" Reset """
-from sage.misc.reset import reset
-reset()
+    if newline: print('\n', end='')
 
-""" Import and define """
-from os import system
-from myFunctions import double_print, matrix_print
+    if name != '':  print(prefix + name + ':', end='\n')
+    print(prefix + '[', end='')
 
-def declare_variables():
-    """ Add all variables names """
+    for i_row in range(0, M.nrows()):
+        row_start = prefix if not inline and i_row > 0 else ''
+        row_prefix = ' ' if i_row > 0 else ''
+
+        print(row_start + row_prefix + '[', end='')
+
+        for i_col in range(0, M.ncols()):
+            if i_col < M.ncols() - 1:
+                separator = between_entries
+            else:
+                separator = ''
+            print(str(M[i_row][i_col]).rjust(rjust_count) + separator, end='')
+
+        row_suffix = ',' if i_row < M.nrows() - 1 else ''
+        row_end = '\n' if i_row < M.nrows() - 1 and not inline else ''
+
+        print(']' + row_suffix, end=row_end)
+
+    print(']')
+
+""" Print the matrix, prefixed by its name. """
+def double_print(name, M):
+        if(type(M) == type(matrix())):
+            matrix_print(M, name=name)
+        else:
+            print("\n{}:\n".format(name), end='')
+            print(M)
+
+""" Declare and inject all variables automatically. """
+def declare_variables(vectors_length, new_parameters_names='',
+    variables_are_in_polynomial_ring=False, parameters_are_in_polynomial_ring=False):
+
+    """ Declare variables """
     variables_names = ''
+    parameters_names = ""
+    symbolic_names = ""
+    polynomial_ring_names = ""
+    Xn_list = []
+    R = false
+
+    """ Add all variables names """
     # Add x, y, z
     variables_names += 'x, y, z'
     # Add x0, x1, ... if needed
@@ -25,7 +65,6 @@ def declare_variables():
             variables_names += (', x' + str(i))
 
     """ Add all parameters names """
-    parameters_names = ""
     # Add h, t, k
     parameters_names += 'h, t, k'
     # Add new_parameters_names if present
@@ -34,9 +73,6 @@ def declare_variables():
 
     """ Combine according to boolean in symbolic names and
         polynomial ring names """
-    symbolic_names = ""
-    polynomial_ring_names = ""
-
     if variables_are_in_polynomial_ring:
         polynomial_ring_names += variables_names
     else:
@@ -53,13 +89,11 @@ def declare_variables():
     # var() style
     print("\nDeclaring variables:")
 
-    Xn_list = []
     if symbolic_names != "":
         print('\tAs var():\t\t{}'.format(symbolic_names))
         Xn_list = var(symbolic_names)
 
     # PolynomialRing and inject style
-    R = false
     if polynomial_ring_names != "":
         print('\tWith PolynomialRing:\t{}'.format(polynomial_ring_names))
         R = PolynomialRing(QQ, polynomial_ring_names)
@@ -67,8 +101,8 @@ def declare_variables():
 
     return R, Xn_list
 
-# Naive Gaussian reduction
-def gauss_method(M):
+""" Naive Gaussian reduction. """
+def gauss_method(M, gauss_rescale_leading_entry=False, fine_debug=False):
     """Describe the reduction to echelon form of the given matrix of rationals.
 
     M  matrix of rationals   e.g., M = matrix(QQ, [[..], [..], ..])
@@ -128,60 +162,3 @@ def gauss_method(M):
         col +=1
 
     return M
-
-""" Clear the terminal """
-system('clear')
-
-"""
-#################### INIT STOP ####################
-"""
-
-"""
-#################### CONFIG START ####################
-"""
-
-use_gauss_reduction = True
-gauss_rescale_leading_entry = True
-
-variables_are_in_polynomial_ring = False
-parameters_are_in_polynomial_ring = False
-
-use_rref_instead_of_echelon_form = False
-
-fine_debug = False
-
-"""
-#################### CONFIG STOP ####################
-"""
-
-"""
-#################### USER START ####################
-"""
-
-""" Initialize variables """
-# x, y, z, h, t, k are declared for default
-new_parameters_names = ''
-vectors_length = 4
-
-R, Xn_list = declare_variables()
-
-""" Assumptions and assignements """
-# if not parameters_are_in_polynomial_ring:
-#     assume(h, 'real')
-# k = 0
-
-""" Content """
-Content = [
-]
-
-"""
-#################### USER END ####################
-"""
-
-"""
-#################### COMPUTATION START ####################
-"""
-
-"""
-#################### COMPUTATION END ####################
-"""

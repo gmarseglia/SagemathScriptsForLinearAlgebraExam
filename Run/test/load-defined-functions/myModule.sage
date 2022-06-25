@@ -2,11 +2,6 @@
     Customized Sage functions.
 """
 
-""" Print the matrix, prefixed by its name. """
-def double_print(name, M):
-        print("\n{}:\n".format(name), end='')
-        print(M)
-
 """ Print matrix with more control. """
 def matrix_print(M, name='', prefix='', inline=False, newline=True, between_entries=','):
     rjust_count = 0
@@ -40,6 +35,14 @@ def matrix_print(M, name='', prefix='', inline=False, newline=True, between_entr
         print(']' + row_suffix, end=row_end)
 
     print(']')
+
+""" Print the matrix, prefixed by its name. """
+def double_print(name, M):
+        if(type(M) == type(matrix())):
+            matrix_print(M, name=name)
+        else:
+            print("\n{}:\n".format(name), end='')
+            print(M)
 
 """ Declare and inject all variables automatically. """
 def declare_variables(vectors_length, new_parameters_names='',
