@@ -182,6 +182,11 @@ def clear_bottom_rows_from_pivot(M, pivot_row, pivot_col, also_clear_right_colum
 
 """ Naive Gauss-Lagrange Algorithm """
 def gauss_lagrange_method(G, fine_debug = False):
+
+    if not G.is_symmetric():
+        print('\nMatrix is not symmetric.')
+        return
+
     GI = G.augment(identity_matrix(G.nrows()), subdivide = True)
 
     if fine_debug: double_print('GI', GI)
