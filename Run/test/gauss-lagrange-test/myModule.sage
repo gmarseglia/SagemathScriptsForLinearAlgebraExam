@@ -162,3 +162,63 @@ def gauss_method(M, gauss_rescale_leading_entry=False, fine_debug=False):
         col +=1
 
     return M
+
+""" Gauss step in which clear the entries below the pivot, can also redo the operation on the column
+    to be used in Gauss-Lagrange algorithm. """
+def clear_bottom_rows_from_pivot(M, pivot_row, pivot_col, also_clear_right_columns = False, fine_debug = False):
+    for i_row in range(pivot_row + 1, M.nrows()):
+        factor = - (M[i_row][pivot_col] / M[pivot_row][pivot_col])
+
+        M.add_multiple_of_row(i_row, pivot_row, factor)
+
+        if fine_debug:
+            matrix_print(M, 'Matrix after: row {} + {} times row {}'.format(i_row, factor, pivot_row))
+
+        if also_clear_right_columns:
+            M.add_multiple_of_column(i_row, pivot_row, factor)
+
+            if fine_debug:
+                matrix_print(M, 'Matrix after: column {} + {} times column {}'.format(i_row, factor, pivot_row))
+
+""" Naive Gauss-Lagrange Algorithm """
+def gauss_lagrange_method(G, fine_debug = False):
+    GI = G.augment(identity_matrix(G.nrows()), subdivide = True)
+
+    if fine_debug: double_print('GI', GI)
+
+    for i_col in range(0, GI.nrows()):
+        if GI.column(i_col) == 0:
+            continue
+
+        j = i_col
+        i = GI.nonzero_positions_in_column(j)[0]
+
+        while i != j or GI[i][j] == 0:
+            GI.add_multiple_of_row(j, i, 1)
+            if fine_debug:
+                matrix_print(GI, 'GI after: row {} + {} times row {}'.format(j, 1, i))
+
+            GI.add_multiple_of_column(j, i, 1)
+            if fine_debug:
+                matrix_print(GI, 'GI after: column {} + {} times column {}'.format(j, 1, i))
+
+            if fine_debug: double_print('GI', GI)
+
+            j = i_col
+            i = GI.nonzero_positions_in_column(j)[0]
+
+        if fine_debug: print('\nPivot found at [{}][{}]'.format(i,j))
+
+        clear_bottom_rows_from_pivot(GI, i, j, also_clear_right_columns = True, fine_debug = fine_debug)
+
+        if fine_debug:
+            double_print('GI', GI)
+
+    D = GI.submatrix(0, 0, GI.nrows(), GI.nrows())
+    P = GI.submatrix(0, GI.nrows(), GI.nrows(), GI.nrows()).transpose()
+
+    if fine_debug:
+        double_print('D', D)
+        double_print('P', P)
+
+    return GI, D, P
