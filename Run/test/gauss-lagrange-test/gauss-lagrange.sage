@@ -39,11 +39,10 @@ def clear_bottom_rows_and_right_columns_from_pivot(M, pivot_row, pivot_col, fine
 
 def gauss_lagrange_method(G, fine_debug = False):
     GI = G.augment(identity_matrix(G.nrows()), subdivide = True)
-    print('\nGI:\n', end='')
-    print(GI)
+    if fine_debug:
+        double_print('G', G)
 
     for i_col in range(0, GI.nrows()):
-    # for i_col in range(0, 1):
         if GI.column(i_col) == 0:
             continue
 
@@ -52,40 +51,59 @@ def gauss_lagrange_method(G, fine_debug = False):
 
         while i != j:
             GI.add_multiple_of_row(j, i, 1)
-            matrix_print(GI, 'GI after: row {} + {} times row {}'.format(j, 1, i))
-            GI.add_multiple_of_column(j, i, 1)
-            matrix_print(GI, 'GI after: column {} + {} times column {}'.format(j, 1, i))
+            if fine_debug:
+                matrix_print(GI, 'GI after: row {} + {} times row {}'.format(j, 1, i))
 
-            double_print('GI', GI)
+            GI.add_multiple_of_column(j, i, 1)
+            if fine_debug:
+                matrix_print(GI, 'GI after: column {} + {} times column {}'.format(j, 1, i))
+
+            if fine_debug: double_print('GI', GI)
 
             j = i_col
             i = GI.nonzero_positions_in_column(j)[0]
 
-        print('\nPivot found at [{}][{}]'.format(i,j))
+        if fine_debug: print('\nPivot found at [{}][{}]'.format(i,j))
 
-        clear_bottom_rows_and_right_columns_from_pivot(GI, i, j, True)
+        clear_bottom_rows_and_right_columns_from_pivot(GI, i, j, fine_debug = fine_debug)
 
-        double_print('GI', GI)
+        if fine_debug:
+            double_print('GI', GI)
 
-    return GI
+
+    D = GI.submatrix(0, 0, GI.nrows(), GI.nrows())
+    P = GI.submatrix(0, GI.nrows(), GI.nrows(), GI.nrows()).transpose()
+
+    if fine_debug:
+        double_print('D', D)
+        double_print('P', P)
+
+    return GI, D, P
 
 # G_content = [[6, -1, 3],
 #             [-1, 2, 1],
 #             [3, 1, 6]]
 
-G_content = [[0, -2, 3],
-            [-2, 6, -10],
-            [3, -10, 8]]
+# G_content = [[0, -2, 3],
+#             [-2, 6, -10],
+#             [3, -10, 8]]
 
-G = matrix(QQ, 3, 3, G_content)
+G_content = [[1, 1, 1],
+            [1, 0, 1],
+            [1, 1, 1]]
+
+# G_content = [[0, 1/2],  [1/2, 0]]
+
+G = matrix(QQ, G_content)
 
 matrix_print(G, 'G')
 
-#clear_bottom_rows_and_right_columns_from_pivot(G, 0, 0, fine_debug = True)
+GI, D, P = gauss_lagrange_method(G, fine_debug = True)
 
-matrix_print(G, 'G')
-
-GI = gauss_lagrange_method(G, fine_debug = True)
+print("\nAfter Gauss-Lagrange:")
+matrix_print(GI, 'GI', prefix='\t')
+matrix_print(D, 'D', prefix='\t')
+matrix_print(P, 'P', prefix='\t')
 
 
 """
