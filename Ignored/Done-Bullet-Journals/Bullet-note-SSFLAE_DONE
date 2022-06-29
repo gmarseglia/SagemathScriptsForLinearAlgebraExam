@@ -1,0 +1,27 @@
+# AGGIORNA SCRIPT .SAGE CON NUOVO TEMPLATE
+
+ x Valutare la creazione di un vettore delle variabili create con var() per essere usate al posto di R.gen()
+ x Creato
+
+ x base-da-vettori.sage
+     x Small test
+
+ x rappresentazione-cartesiana.sage
+     x Small test
+
+ x sistema-lineare-omogeneo.sage
+     x Small test
+
+ x sistema-lineare-con-parametro-k.sage
+     x Small test
+
+!x Aggiorna precedenti dopo creazione del vettore delle variabili...
+    *x template.sage (copiarlo da sistema-lineare-con-parametro-k.sage)
+
+     x base-da-vettori.sage
+
+     x rappresentazione-cartesiana.sage
+
+     x sistema-lineare-omogeneo.sage
+
+     x sistema-lineare-con-parametro-k.sage

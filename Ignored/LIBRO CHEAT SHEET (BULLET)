@@ -1,0 +1,86 @@
+# CHEAT SHEET PER SCRITTO GEOMETRIA
+
+NUOVA:
+{
+	# Pagina 1
+	- Somma di sottospazi
+	- Somma diretta di sottospazi
+	- Intersezione di sottospazi
+	- Rango di una matrice
+
+	# Pagina 2
+	- Determinante di una matrice
+	- Inversa di una matrice
+	- Corollario: rango e invertibilità e determinante
+	- Risoluzione di un sistema lineare con operazioni elementari
+
+	# Pagina 3
+	- Risoluzione di un sistema lineare di Cramer
+	- Sistemi lineari omogeni
+	- Da base a rappresentazione cartesiana
+	- Da rappresentazione cartesiana a base
+	- Sistema lineare omogeneo associato
+	- Coordinate di un vettore rispetto ad una base
+
+	# Pagina 4
+	- Matrice del cambiamento delle coordinate
+	- Applicazione lineare
+	- Matrice rappresentativa
+	- Nucleo di un'applicazione lineare
+
+	# Pagina 5
+	- Immagine di un'applicazione lineare
+	- Isomorfismi
+	- Endomorfismi e similitudine fra matrici
+	- Endomorfismi in un polinomio
+	- Endomorfismi e matrici diagonalizzabili
+
+	# Pagina 6
+	- Autovettori ed autovalori
+	- Polinomio caratteristico e spettro
+	- Molteplicità di un autovalore
+	- Diagonalizzare un endomorfismo
+
+	# Pagina 7
+	- Matrice diagonale a blocchi
+	- Sottospazi invarianti
+	- Blocchi di Jordan e λ-stringhe
+	- Autospazio generalizzato
+	- Operatore nilpotente
+
+	# Pagina 8
+	- Calcolare una base a stringhe
+
+	# Pagina 9
+	- Base a stringhe senza Jordan
+	- Teorema di Cauchy-Hamilton
+	- Polinomio minimo
+
+	
+}
+
+IN ATTESA:
+	- Calcolare forma canonica di Jordan e base a stringhe
+
+PRESENTE IN APPENDICE:
+	- Intersezione di sotto spazi
+	- Da base a rappresentazione cartesiana
+	- Da rappresentazione cartesiana a basa / Risolvere un sistema lineare omogeneo
+
+PRESENTE NEGLI APPUNTI:
+	- Unione e somma diretta di sotto spazi
+	- Risolvere un sistema lineare non omogeneo (13)
+	- Applicazione delle coordinate (15)
+	- Matrice rappresentativa (17)
+	- Nucleo ed immagine di un'applicazione lineare (18)
+	- Polinomio caratteristico e spettro di un endomorfismo (21)
+	- Sottospazi invarianti, blocchi di Jordan e basi a stringhe (23)
+	- Calcolare base a stringhe (25) + (Appendice 1)
+	- Calcolare Jordan senza base a stringhe (27)
+	- Polinomio minimo (27)
+	- Esponenziale di una matrice (30) + (Appendice 1)
+	
+NON PRESENTE:
+	- Applicazione delle coordinate con SAGE
+	- Matrice di Gram
+	- Diagonalizzazione con algoritmo di Gauss Jordan

@@ -1,0 +1,67 @@
+# RIPASSO CAPITOLO 7
+
+ARGOMENTI NEL LIBRO:
+	{
+		- 1. Forme bilineari simmetriche (1)
+			- Matrice di Gram
+
+		- 2. Forme quadratiche (6)
+
+		- 3. Diagonalizzazione di una forma quadratica (9)
+			- Algortimo di Gauss-Lagrange (Appendice)
+
+		- 4. Spazi pseudoeuclidei (13, App 31)
+		{
+			- Vettori ortogonali e basi ortogonali
+			- Invarianti: n,p,r,s -> Dimensione, rango, indice e segnatura
+			- Base ortonormale ( , App 32)
+			- Classificazione delle forme quadratiche
+		}
+
+		- 5. Classificazione degli spazi pseudoeuclidei ( , App 33)
+		{
+			- Criterio dei minori principali e criteri di Jacobi
+		}
+
+		- 6. Spazi euclidei (24, App 33)
+		{
+			- Prodotto scalare
+			- Norma o lunghezza di un vettore
+			- Angolo fra due vettori e disuguaglianza di Cauchy-Schwarz
+		}
+
+		- 7. Proiezione ortogonale di un vettore su uno spazio euclideo (28, App 33)
+
+		- 8. Procidemento di ortogonalizzazione di Gram-Schmidt (31, Appendice)
+
+		- 9. Proiezione ortogonale su un sottospazio di uno spazio euclideo (33, App 34)
+		{
+			- Completamento ortogonale
+			- Somma diretta ortognale (36)
+		}
+
+		- 10. La proiezione ortogonale come operatore lineare (41, App 35)
+
+		- 11. Le matrici ortogonali (43, App 35)
+			- Completamento a matrice ortogonale
+
+		- 12. Operatori lineari in uno spazio euclideo (45)
+		{
+			- Operatore aggiunto o trasposto (46, App 35)
+			- Operatore autoaggiunto (46)
+			- Teorema degli assi principali (47, App 36)
+				- Mega corollari (48)
+				{
+					- Diversa matrice che diagonalizza e criterio di Cartesio
+					- Diagonalizzazione simultanea di due matrici simmetriche
+					- Diagonalizzazione simultanea di due forme quadratiche
+					- Teorema spettrale ( , App 36)
+				}
+		}
+
+		- 13. La decomposizione ai valori singolari (53, App 37)
+		{
+			- Teorema di decomposizione ai valori singolari (55)
+			- Teorema di decomposizione polare (56)
+		}
+	}

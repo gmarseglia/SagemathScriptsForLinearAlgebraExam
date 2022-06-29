@@ -1,0 +1,93 @@
+# IV Appello di Geometria
+
+PIANO DI AZIONE:
+
+    !• Ripasso argomenti
+    {
+        X Capitolo 1 
+        X Capitolo 2
+            - '9. Calcolo del rango con uso del determinante' saltato per ora.   
+        X Capitolo 3
+            - Manca parte della risoluzione dei sistemi lineari con i determinanti (3.12)
+            *- Potrebbe essere carino creare una funzione Sage per il passaggio da rappresentazione cartesiana a base.
+        X Capitolo 4
+            - Saltato le applicazioni lineari geometriche.
+        X Capitolo 5
+            - Particolare attenzione al polinomio minimo.
+        • Capitolo 6
+            - Rischiosissimo ma lo salto per ora. 
+        !• Capitolo 7
+            - Molto importante per il 6° esercizio.
+            - Tavola dei contenuti mancante sul quaderno, presente in 'TOC CAPITOLO 7 (BULLET)'
+    }
+    
+    {
+        X Ordina appunti Capitolo 7
+            X Controlla appunti su fogli bianchi.
+
+        X Cerca in esami passati
+        {
+            - Il 3° appello del 2021, a pagina 289 contiene un 6° esercizio con lo spazio dei polinomi di grado minore di t. Sembra anche abbastanza semplice
+            - Anche il 4° appello del 2020, a pagina 269.
+            *- Controllato circa il 50% degli ultimi esami, e quelle indicate sono le uniche volte in cui appare questo tipo di esercizio.
+        }
+
+        X Cerca svolgimento di Gauss-Lagrange in Sage 
+            - L'algoritmo di Gauss-Lagrande si trova ne 7.Formqdr.pdf
+    }
+
+    X Provare a fare degli esperimenti con Sage, riguardo al prodotto di matrici e la loro forma di Jordan:
+        - Poco tempo per ora.
+
+    • Aggiungi sezione di "Guida alla creazione di uno script Sage in SAGE CHEAT SHEET_BULLET".
+
+    - Appunti quasi tutti ordinati. Tolti alcuni esercizi ridontanti, la vecchia appendice e la vecchia cheat sheet.
+
+    *• Creare nuova cheat sheet. (Hai il suo bullet.)
+
+
+
+ESERCIZI:
+
+    - 1° esercizio: A SOPRESA
+        - Essendo il secondo su un sistema lineare, il primo dovrebbe essere riguardo qualcosa antecedente ai sistemi lineari.
+        • Controllare libro per argomenti possibili al 1° esercizio.
+        • Controllare esami passati per primi esercizi diversi dal solito.
+
+    - 2° esercizio: Sistema lineare con parametro k.
+        - Spero non sia troppo complicato, ma dovrebbe essere gestibile.
+
+    - 3° esercizio: A SOPRESA
+        - Dovrebbe essere compreso fra i sistemi lineari e la forma di Jordan.
+        • Controllare libro per argomenti possibili al 3° esercizio.
+        • Controllare esami passati per terzi o quarti esercizi diversi dal solito.
+
+    - 4° esercizio: forma di Jordan del prodotto di due matrici.
+        - Potrebbe essere semplice, nel caso basti fare il prodotto, ma dubito che
+            sarà così semplice.
+        X Cerca negli esami passati qualcosa di simile.
+            - Trovato nulla.
+
+    - 5° esercizio: polinomio minimo.
+        - Potrebbe essere semplice, o estramemente convoluto.
+        • Cerca in esami passati esercizi particolari sul polinomio minimo.
+
+    - 6° esercizio: invarianti ed una base ortogonale di una forma bilineare su R[t]<2.
+        - Devo assolutamente ripassare questa parte.
+        - Base ortogonale è molto meglio di base ortonormale.
+
+SAGE:
+    - Per il 1° non posso preparare nessuno script particolare, ma posso evidenziare quali sono le funzioni più utili magari.
+
+    - Per il 2° ho lo script.
+
+    - Per il 3° non posso preparare niente, ma posso fare come per il 1°.
+
+    - Per il 4° ho lo script, ma non ha nessun aspetto legato al prodotto di matrici.
+
+    - Per il 5° ho lo script, ma solo dell'esercizio base.
+
+    - Per il 6° ho nulla lo script per l'algoritmo di Gauss-Lagrange.
+
+NOTE:
+    - Proiezione ortogonale e spazi euclidei non me li ricordo proprio.  

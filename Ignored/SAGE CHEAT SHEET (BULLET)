@@ -1,0 +1,86 @@
+#SAGE CHEAT SHEET
+
+HELP:
+	command?
+	command??
+	help(command)
+
+ESEGUIRE MODULI:
+	load("module.sage")
+		# Carica ed esegue il modulo una volta sola
+
+	attach('module.sage')
+		# Carica ed esegue il modulo ogni volta che questo viene modificato (salvato)
+
+	detach('module.sage')
+		# L'opposto di attach
+
+	attached_files()
+		# Lista dei file attached.
+		# Esempio:
+			detach(attached_files()[0])
+
+PERSISTENZA OGGETTI:
+	save(object, 'object_name')
+		# Salva l'oggetto come object_name.sobj.
+
+	load('object_pathname')
+		# Carica l'oggetto salvato in precedenza.
+
+DICHIARAZIONI VARIABILI:
+	x = var('x')
+		# Caso 1. Dichiara la variabile nel Symbolic Ring.
+
+	R = PolynomialRing(QQ, 'x')
+	R.inject_variables()
+		# Caso 2. Dichiara la variabile nel Univariate/Multivariate Polynomial Ring over Rational Field
+
+	R.<x> = PolynomialRing(QQ)
+		# Caso 3. Versiona compatta di quello precedente.
+
+	# Nei casi 2 e 3 è possibile accedere alla variabile tramite:
+	R.gens()[i]
+	# oppure
+	R.gen(i)
+
+RINGS e FIELDS:
+	ZZ	# Integers, ring
+	QQ	# Rationals, field
+	RR 	# Reals
+	RDF	# Reals, field
+	CC	# Complex field
+	SR	# Symbolic ring
+
+GENERAL USE:
+	self.subs(k = 10)
+		# Effettua una sostituzione su un oggetto, come una matrice.
+
+	assume(k, 'real')
+		# Assume che una variabile faccia parte di un Field.
+
+	clear
+		# Pulisce il terminale.
+
+	reset()
+		# Resetta ambiente, elimina variabili dichiarate.
+
+
+ALGEBRA LINEARE:
+	M.right_kernel(basis = 'pivot')
+		# Ritorna il kernel di una matrice
+
+	M.solve_left(vector)
+		# Ritorna le coordinate del vector rispetto alla matrice M, che hai i vettori della base sulle righe.
+
+	U = span(vector_list, ring)
+	U = span([ [1, 0, 0], [0, 1, 0] ], QQ)
+		# Ritorno lo spazio generato dalla lista di vettori.
+
+	# U, V e W sono sottospazi.
+	v = U.intersection(W)
+		# Ritorna l'intersezione di sottospazi.
+
+	I = identity_matrix(dimension)
+		# Ritorna la matrice identità di dimensione dimension.
+
+	
